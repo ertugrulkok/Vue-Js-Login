@@ -1,0 +1,285 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <!-- SMTP JS -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="login.js" defer></script>
+    <!-- Vue 3 JS -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.3.0/mdb.min.js"
+    ></script>
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.3.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <section id="app">
+      <!-- Pills navs -->
+
+      <div class="container">
+        <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link active"
+              id="tab-login"
+              data-mdb-toggle="pill"
+              href="#pills-login"
+              role="tab"
+              aria-controls="pills-login"
+              aria-selected="true"
+              >Login</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="tab-register"
+              data-mdb-toggle="pill"
+              href="#pills-register"
+              role="tab"
+              aria-controls="pills-register"
+              aria-selected="false"
+              >Register</a
+            >
+          </li>
+        </ul>
+        <!-- Pills navs -->
+
+        <!-- Pills content -->
+        <div class="tab-content">
+          <div
+            class="tab-pane fade show active"
+            id="pills-login"
+            role="tabpanel"
+            aria-labelledby="tab-login"
+          >
+            <form v-on:submit.prevent="submitForm">
+              <div class="text-center mb-3">
+                <p>Sign in with:</p>
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-google"></i>
+                </button>
+
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-twitter"></i>
+                </button>
+
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-github"></i>
+                </button>
+              </div>
+
+              <p class="text-center">or:</p>
+
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="text"
+                  id="loginName"
+                  class="form-control"
+                  v-model="usernameInput"
+                />
+                <label class="form-label" for="loginName">Username</label>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="password"
+                  id="loginPassword"
+                  class="form-control"
+                  v-model="passwordInput"
+                />
+                <label class="form-label" for="loginPassword">Password</label>
+              </div>
+
+              <!-- Submit button -->
+              <button
+                type="submit"
+                class="btn btn-primary btn-block mb-4"
+                @click="login"
+              >
+                Sign in
+              </button>
+            </form>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="pills-register"
+            role="tabpanel"
+            aria-labelledby="tab-register"
+          >
+            <form v-on:submit.prevent="submitForm">
+              <div class="text-center mb-3">
+                <p>Sign up with:</p>
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-google"></i>
+                </button>
+
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-twitter"></i>
+                </button>
+
+                <button type="button" class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-github"></i>
+                </button>
+              </div>
+
+              <p class="text-center">or:</p>
+
+              <!-- Name input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="text"
+                  id="registerName"
+                  class="form-control"
+                  v-model="nameInput"
+                />
+                <label class="form-label" for="registerName">Name</label>
+              </div>
+
+              <!-- Username input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="text"
+                  id="registerUsername"
+                  class="form-control"
+                  v-model="usernameInput"
+                />
+                <label class="form-label" for="registerUsername"
+                  >Username</label
+                >
+              </div>
+
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="email"
+                  id="registerEmail"
+                  class="form-control"
+                  v-model="usermailInput"
+                />
+                <label class="form-label" for="registerEmail">Email</label>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="password"
+                  id="registerPassword"
+                  class="form-control"
+                  v-model="passwordInput"
+                />
+                <label class="form-label" for="registerPassword"
+                  >Password</label
+                >
+              </div>
+
+              <div class="form-outline mb-4">
+                <input type="checkbox" v-model="admin" />
+                <label class="form-label" for="registerPassword">Admin</label>
+              </div>
+
+              <!-- Checkbox -->
+
+              <!-- Submit button -->
+              <button
+                type="submit"
+                class="btn btn-primary btn-block mb-3"
+                @click="registration"
+              >
+                Register
+              </button>
+            </form>
+          </div>
+        </div>
+        <!-- Pills content -->
+      </div>
+
+      <div class="user-container">
+        <p>{{invalidMessage}}</p>
+
+        <p>{{displayName}}</p>
+
+        <div class="form-check form-switch">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="flexSwitchCheckDefault"
+            v-model="showDetails"
+          />
+          <label for="flexSwitchCheckDefault">Show User</label>
+        </div>
+
+        <!-- displayBereich -->
+        <div class="details" v-if="showDetails">
+          <div class="userCredentials" v-if="displayLogin">
+            <p>Hier sind deine UserDaten:</p>
+            <p>Name: {{displayName}}</p>
+            <p>username: {{displayUsername}}</p>
+            <p>Email-Adresse: {{displayEmail}}</p>
+            <p>Password: {{displayPassword}}</p>
+            <p>
+              {{displayName}} ist <span v-if="displayAdmin">EIN</span>
+              <span v-else>KEIN</span> Admin
+            </p>
+          </div>
+
+          <div class="form-check form-switch" v-if="displayAdmin">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+              v-model="showList"
+            />
+            <label for="flexSwitchCheckDefault">Show All Users</label>
+          </div>
+        </div>
+      </div>
+
+      <ul v-if="showList">
+        <li v-for="person in persons ">
+          <ul>
+            <li v-for="(value, key) in person">{{key}}: {{value}}</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Extras die hinzugefügt werden sollen  -->
+    <!--  <ul>
+      <li>Registration Email versenden</li>
+      <li>LocalStorage</li>
+      <li>Admin Benutzer bearbeiten oder löschen kann</li>
+    </ul> -->
+  </body>
+</html>
